@@ -84,9 +84,7 @@ class queue_item {
     preg_match ('/^Tags\s*:\s*(.*)$/m', $this->raw_text, $raw_tags);
     $this->tags = preg_split ('/\s*,\s*/', $raw_tags[1]);
 
-    $pretty_tags = "<div class='queue_item_tag_wrap'>"
-                    . implode (" ", array_map (array($this, 'tag_wrap'), $this->tags))
-                    . "</div>";
+    $pretty_tags = implode (" ", array_map (array($this, 'tag_wrap'), $this->tags));
 
     //
     // Now nuke the 'Tags:' line, and clean up again
@@ -101,11 +99,21 @@ class queue_item {
       $tag_classes .= ' tc_' . $tag;
     }
 
+    //
+    // Make an appropriate Id
+    //
+    list($id_txt) = preg_split ('/\n/ms', $this->raw_text);
+    if (strlen ($id_txt) > 70) {
+      $id_txt = substr ($id_txt, 0, 70) . "...";
+    }
+
     $this->pretty_text = <<<EOD
   <div class='queue_item {$tag_classes}' id='item_{$this->id}'>
     <div class='queue_item_head'>
-      <div class='queue_item_id'>Item {$this->id}</div>
-      {$pretty_tags}
+      <div class='queue_item_id'>{$this->id} : {$id_txt}</div>
+      <div class='queue_item_tag_wrap'>
+        {$pretty_tags}
+      </div>
       <br class='separator'>
     </div> <!-- queue_item_head -->
     <div class='queue_item_body'>

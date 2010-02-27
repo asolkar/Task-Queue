@@ -151,6 +151,16 @@ br.separator {
   display : none;
 }
 
+.queue_button {
+  display : inline-block;
+  border-top : thin solid #eeeeee;
+  border-left : thin solid #eeeeee;
+  border-bottom : thin solid #cccccc;
+  border-right : thin solid #cccccc;
+  margin-bottom : 10px;
+  padding : 1px 5px 1px 5px;
+  cursor : pointer;
+}
 
 /* Header formatting */
 .queue_item_head {
@@ -174,6 +184,7 @@ br.separator {
   font-weight : bold;
   padding : 1px 1px 1px 1px;
   margin : 0px 1px 0px 1px;
+  cursor : pointer;
 }
 
 .queue_item pre {
@@ -183,6 +194,7 @@ br.separator {
 .queue_item_id {
   font-weight : bold;
   float : left;
+  cursor : pointer;
 }
 
 .queue_item_body {

@@ -50,8 +50,9 @@ function http_doc_type() {
 <div id='shrink_wrapper_shell'>
 <div id='shrink_wrapper'>
 <h1>My Task Queue</h1>
-<div id="show_all_botton">Show All</div>
-<div id="collapse_all_botton">Collapse All</div>
+<div class="queue_button" id="show_all_botton">Show All</div>
+<div class="queue_button" id="collapse_all_botton">Collapse All</div>
+<div class="queue_button" id="expand_all_botton">Expand All</div>
 <?php
 
 echo $__queue->pretty_print();
@@ -77,22 +78,20 @@ $(document).ready(function(){
     var class_list = $(this).attr('class');
     var selected_class = class_list.substr(class_list.indexOf("tc_"));
 
-    $(".queue_item").addClass('hide_queue_item');
-    $(".queue_item." + selected_class).removeClass('hide_queue_item');
+    $(".queue_item").hide();
+    $(".queue_item." + selected_class).show('fast');
+  }),
+  $(".queue_item_id").click (function(){
+    $(this).parent().siblings().toggle('fast');
   }),
   $("#show_all_botton").click (function(){
-    $(".queue_item").removeClass('hide_queue_item');
-    // $(".queue_item_body").removeClass('hide_queue_item_body');
+    $(".queue_item").show('fast');
   }),
   $("#collapse_all_botton").click (function(){
-    $(".queue_item_body").addClass('hide_queue_item_body');
+    $(".queue_item_body").hide('fast');
   }),
-  $(".queue_item_head").click (function(){
-    if ($(this).siblings().hasClass('hide_queue_item_body')) {
-      $(this).siblings().removeClass('hide_queue_item_body');
-    } else {
-      $(this).siblings().addClass('hide_queue_item_body');
-    }
+  $("#expand_all_botton").click (function(){
+    $(".queue_item_body").show('fast');
   })
 });
 
