@@ -128,32 +128,37 @@ $(document).ready(function(){
     var selected_class = class_list.substr(class_list.indexOf("tc_"));
 
     $(".queue_item").hide();
-    $(".queue_item." + selected_class).show();
-    update_button_properties();
+    $(".queue_item." + selected_class).show('fast', function(){
+      update_button_properties()
+    });
   });
 
   // Id : Toggle collapse/expand a task when clicked on Id
   $(".queue_item_id").click (function(){
-    $(this).parent().siblings().toggle();
-    update_button_properties();
+    $(this).parent().siblings().toggle('fast', function(){
+      update_button_properties()
+    });
   });
 
   // Show All : Show all tasks
   $("#show_all_botton").click (function(){
-    $(".queue_item").show();
-    update_button_properties();
+    $(".queue_item").show('fast', function(){
+      update_button_properties()
+    });
   });
 
   // Collapse All : Collapse all visible tasks
   $("#collapse_all_botton").click (function(){
-    $(".queue_item_body").hide();
-    update_button_properties();
+    $(".queue_item_body").hide('fast', function(){
+      update_button_properties()
+    });
   });
 
   // Expand All : Expand all visible tasks
   $("#expand_all_botton").click (function(){
-    $(".queue_item_body").show();
-    update_button_properties();
+    $(".queue_item_body").show('fast', function(){
+      update_button_properties()
+    });
   });
 
   //
