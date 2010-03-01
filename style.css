@@ -162,6 +162,12 @@ br.separator {
   cursor : pointer;
 }
 
+.queue_button.disable_button {
+  color : #eeeeee;
+  border : thin solid #eeeeee;
+  cursor : default;
+}
+
 /* Header formatting */
 .queue_item_head {
   font-family : "Trebuchet MS", sans-serif;

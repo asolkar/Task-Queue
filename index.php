@@ -50,9 +50,9 @@ function http_doc_type() {
 <div id='shrink_wrapper_shell'>
 <div id='shrink_wrapper'>
 <h1>My Task Queue</h1>
-<div class="queue_button" id="show_all_botton">Show All</div>
-<div class="queue_button" id="collapse_all_botton">Collapse All</div>
-<div class="queue_button" id="expand_all_botton">Expand All</div>
+<input type="button" class="queue_button" id="show_all_botton" name="show_all" value="Show All" />
+<input type="button" class="queue_button" id="collapse_all_botton" name="collapse_all" value="Collapse All" />
+<input type="button" class="queue_button" id="expand_all_botton" name="expand_all" value="Expand All" />
 <?php
 
 echo $__queue->pretty_print();
@@ -66,9 +66,40 @@ echo $__queue->pretty_print();
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-//
-// Load JS after everything is in place
-//
+var invisible_queue_items = 0;
+var collapsed_queue_items = 0;
+var expanded_queue_items = 0;
+
+function update_button_properties () {
+  invisible_queue_items = $(".queue_item").filter(function(){
+    return ($(this).css("display") == "none");
+  }).length;
+  collapsed_queue_items = $(".queue_item_body").filter(function(){
+    return ($(this).css("display") == "none");
+  }).length;
+  expanded_queue_items = $(".queue_item_body").filter(function(){
+    return ($(this).css("display") != "none");
+  }).length;
+
+  if (invisible_queue_items == 0) {
+    $("input#show_all_botton").attr("disabled", "disabled");
+  } else {
+    $("input#show_all_botton").removeAttr("disabled");
+  }
+  if (expanded_queue_items > 0) {
+    $("input#collapse_all_botton").removeAttr("disabled");
+  } else {
+    $("input#collapse_all_botton").attr("disabled", "disabled");
+  }
+  if (collapsed_queue_items > 0) {
+    $("input#expand_all_botton").removeAttr("disabled");
+  } else {
+    $("input#expand_all_botton").attr("disabled", "disabled");
+  }
+  // console.log ("Invisible items = " + invisible_queue_items);
+  // console.log ("Collapsed items = " + collapsed_queue_items);
+  // console.log ("Expanded items = " + expanded_queue_items);
+}
 
 //
 // jQuery stuff
@@ -80,19 +111,27 @@ $(document).ready(function(){
 
     $(".queue_item").hide();
     $(".queue_item." + selected_class).show('fast');
-  }),
+    update_button_properties();
+  });
   $(".queue_item_id").click (function(){
     $(this).parent().siblings().toggle('fast');
-  }),
+    update_button_properties();
+  });
   $("#show_all_botton").click (function(){
     $(".queue_item").show('fast');
-  }),
+    update_button_properties();
+  });
   $("#collapse_all_botton").click (function(){
     $(".queue_item_body").hide('fast');
-  }),
+    update_button_properties();
+  });
   $("#expand_all_botton").click (function(){
     $(".queue_item_body").show('fast');
-  })
+    update_button_properties();
+  });
+  // $("body").click (function(){
+  //   update_button_properties();
+  // });
 });
 
 
