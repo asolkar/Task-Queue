@@ -12,24 +12,22 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-var invisible_queue_items = 0;
-var collapsed_queue_items = 0;
-var expanded_queue_items = 0;
+var animation_speed = 'fast';
 
 //
 // Based on task status, set button status
 //
 function update_button_properties () {
   // Count invisible items
-  invisible_queue_items = $(".queue_item").filter(function(){
+  var invisible_queue_items = $(".queue_item").filter(function(){
     return ($(this).css("display") == "none");
   }).length;
   // Count collapsed items
-  collapsed_queue_items = $(".queue_item_body").filter(function(){
+  var collapsed_queue_items = $(".queue_item_body").filter(function(){
     return ($(this).css("display") == "none");
   }).length;
   // Count expanded items
-  expanded_queue_items = $(".queue_item_body").filter(function(){
+  var expanded_queue_items = $(".queue_item_body").filter(function(){
     return ($(this).css("display") != "none");
   }).length;
 
@@ -73,36 +71,42 @@ $(document).ready(function(){
     var class_list = $(this).attr('class');
     var selected_class = class_list.substr(class_list.indexOf("tc_"));
 
-    $(".queue_item").hide();
-    $(".queue_item." + selected_class).show('fast', function(){
+    $(".queue_item").filter(function(){
+      return ($(this).hasClass(selected_class) == false);
+    }).hide(animation_speed, function(){
+      update_button_properties()
+    });
+    $(".queue_item").filter(function(){
+      return ($(this).hasClass(selected_class) == true);
+    }).show(animation_speed, function(){
       update_button_properties()
     });
   });
 
   // Id : Toggle collapse/expand a task when clicked on Id
   $(".queue_item_id").click (function(){
-    $(this).parent().siblings().toggle('fast', function(){
+    $(this).parent().siblings().toggle(animation_speed, function(){
       update_button_properties()
     });
   });
 
   // Show All : Show all tasks
   $("#show_all_botton").click (function(){
-    $(".queue_item").show('fast', function(){
+    $(".queue_item").show(animation_speed, function(){
       update_button_properties()
     });
   });
 
   // Collapse All : Collapse all visible tasks
   $("#collapse_all_botton").click (function(){
-    $(".queue_item_body").hide('fast', function(){
+    $(".queue_item_body").hide(animation_speed, function(){
       update_button_properties()
     });
   });
 
   // Expand All : Expand all visible tasks
   $("#expand_all_botton").click (function(){
-    $(".queue_item_body").show('fast', function(){
+    $(".queue_item_body").show(animation_speed, function(){
       update_button_properties()
     });
   });
