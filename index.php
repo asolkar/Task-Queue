@@ -18,10 +18,8 @@
 //
 include 'classes.php';
 
-$__config['queue_file'] = 'Sata.queue';
-$__config['queue_separator'] = '------ Item ------';
+include 'config.inc';
 
-$__status['page_title'] = 'My Task Queue';
 $__status['raw_queue_text'] = '';
 
 $__queue = new queue($__config, $__status);
