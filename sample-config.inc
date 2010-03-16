@@ -16,7 +16,7 @@
 //
 // Sample Configuration options
 //
-$__config['queue_file'] = 'Projects.queue';
+$__config['queue_file'] = 'General.queue';
 $__config['queue_separator'] = '------ Item ------';
 $__config['page_title'] = 'My Task Queue';
 
