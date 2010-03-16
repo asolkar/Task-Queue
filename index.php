@@ -52,6 +52,7 @@ function http_doc_type() {
 <input type="button" class="queue_button" id="show_all_botton" name="show_all" value="Show All" />
 <input type="button" class="queue_button" id="collapse_all_botton" name="collapse_all" value="Collapse All" />
 <input type="button" class="queue_button" id="expand_all_botton" name="expand_all" value="Expand All" />
+<input type="button" class="queue_button" id="toggle_done_button" name="toggle_done" value="Done" />
 <?php
 
 echo $__queue->pretty_print();

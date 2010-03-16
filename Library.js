@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 var animation_speed = 'fast';
+var hide_done = true;
 
 //
 // Based on task status, set button status
@@ -20,7 +21,13 @@ var animation_speed = 'fast';
 function update_button_properties () {
   // Count invisible items
   var invisible_queue_items = $(".queue_item").filter(function(){
-    return ($(this).css("display") == "none");
+    var match = ($(this).css("display") == "none");
+
+    if ((hide_done == true) && ($(this).hasClass('tc_done') == true)) {
+      match = false;
+    }
+
+    return match;
   }).length;
   // Count collapsed items
   var collapsed_queue_items = $(".queue_item_body").filter(function(){
@@ -72,12 +79,20 @@ $(document).ready(function(){
     var selected_class = class_list.substr(class_list.indexOf("tc_"));
 
     $(".queue_item").filter(function(){
-      return ($(this).hasClass(selected_class) == false);
+      var match = ($(this).hasClass(selected_class) == false);
+      if ((hide_done == true) && ($(this).hasClass('tc_done') == true)) {
+        match = false;
+      }
+      return match;
     }).hide(animation_speed, function(){
       update_button_properties()
     });
     $(".queue_item").filter(function(){
-      return ($(this).hasClass(selected_class) == true);
+      var match = ($(this).hasClass(selected_class) == true);
+      if ((hide_done == true) && ($(this).hasClass('tc_done') == true)) {
+        match = false;
+      }
+      return match;
     }).show(animation_speed, function(){
       update_button_properties()
     });
@@ -92,7 +107,9 @@ $(document).ready(function(){
 
   // Show All : Show all tasks
   $("#show_all_botton").click (function(){
-    $(".queue_item").show(animation_speed, function(){
+    $(".queue_item").filter(function(){
+        return !((hide_done == true) && ($(this).hasClass('tc_done') == true));
+      }).show(animation_speed, function(){
       update_button_properties()
     });
   });
@@ -111,8 +128,40 @@ $(document).ready(function(){
     });
   });
 
+  // Toggle Done : Toggle the status of done task visibility
+  $("#toggle_done_button").click (function(){
+    hide_done = !hide_done;
+    // console.log ("Hide done = " + hide_done);
+    if (hide_done == true) {
+      $(this).val('Show Done');
+      $(".queue_item").filter(function(){
+        return ($(this).hasClass('tc_done') == true);
+      }).hide(animation_speed, function(){
+        update_button_properties()
+      });
+    } else {
+      $(this).val('Hide Done');
+      $(".queue_item").filter(function(){
+        return ($(this).hasClass('tc_done') == true);
+      }).show(animation_speed, function(){
+        update_button_properties()
+      });
+    }
+
+  });
+
   //
   // Initially, set button status
   //
-  update_button_properties();
+  if (hide_done == true) {
+    $("#toggle_done_button").val('Show Done');
+    $(".queue_item").filter(function(){
+      return ($(this).hasClass('tc_done') == true);
+    }).hide(animation_speed, function(){
+      update_button_properties()
+    });
+  } else {
+    $("#toggle_done_button").val('Hide Done');
+    update_button_properties();
+  }
 });

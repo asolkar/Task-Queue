@@ -86,7 +86,6 @@ body {
   margin : 0 auto;
   text-align : center;
   background-color : white;
-  background : url(images/back.png) top center no-repeat;
 }
 #shrink_wrapper {
   position : relative;
@@ -210,4 +209,20 @@ br.separator {
 .highlight {
   color : red;
   border : 3px solid blue;
+}
+
+.queue_item.tc_done .queue_item_body
+{
+  color : #cccccc;
+}
+.queue_item.tc_done .queue_item_head
+{
+  color : #cccccc;
+  background-color : #eeeeee;
+}
+.queue_item.tc_done .queue_item_tag
+{
+  color : #cccccc;
+  background-color : #eeeeee;
+  border : thin solid #dddddd;
 }
