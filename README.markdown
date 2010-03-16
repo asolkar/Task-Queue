@@ -16,7 +16,10 @@ Usage
 
 * Task queue items are stored in a text file - say `General.queue`. Each task in the
   queue file is separated by a separator - say `------ Item -----`. Both the file
-  name and the separator can be configured in the top section of `index.php` file.
+  name and the separator can be configured in the `config.inc` file.
+
+* `config.inc` must be created at the time of installation. A good starting point
+  is the `sample-config.inc` provided in the package.
 
 * A special *Tags:* line can be added to the top of the item to associate tags
   with tasks. This is a comma-separated list of tags. Tags can have multiple words.
