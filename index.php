@@ -40,7 +40,7 @@ function http_doc_type() {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="StyleSheet" href="style.css" type="text/css" title="Design Style">
-<title><?php echo "{$__status['page_title']}" ?></title>
+<title><?php echo "{$__config['page_title']}" ?></title>
 
 </head>
 <body>
